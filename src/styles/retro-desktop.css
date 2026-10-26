@@ -460,6 +460,9 @@ html:lang(zh-CN) .brand h1, html:lang(zh-CN) .guide-page .brand a {font-size:24p
   .plan-card .forecast-horizons>span,.plan-card .forecast-horizons>span:nth-child(n) {min-width:0;padding:6px 8px}
   .forecast-horizons .horizon-long {display:none}
   .forecast-horizons .horizon-short {display:inline}
+  /* The three tiles are short labels (12h, 24h, 48h): say what they are. */
+  .plan-card .forecast-glance>[data-forecast-glance="next-hours"] {flex-direction:column;align-items:stretch!important;gap:6px}
+  .plan-card .forecast-glance>[data-forecast-glance="next-hours"]>dt {display:block;font-size:12px;color:var(--muted)}
 }
 /* The name never breaks; on a narrow window the header buttons wrap instead. */
 .brand h1 {white-space:nowrap}
