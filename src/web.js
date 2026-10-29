@@ -167,12 +167,27 @@ const shareControl=()=>`<div class="share-control" data-share-control><button ty
 const publicPageUrl=()=>`${plugin||!globalThis.location?.origin ? `https://${PRODUCT_DOMAIN}` : location.origin}${HOMES[language]}`;
 let sharedCard=null;
 
+// On the page the odds read "Chance of a reset in the next / 12h"; alone in a
+// picture they read better as a title carrying the unit, with "within 12h"
+// over each bare figure.
+function shareWording(frame) {
+  const title=frame.querySelector('[data-forecast-glance="next-hours"]>dt');
+  if(title&&!frame.querySelector('[data-forecast-horizon=announced]'))title.textContent=t('额外 reset 的概率（%）');
+  for(const item of frame.querySelectorAll('[data-forecast-horizon]')) {
+    const hours=item.dataset.forecastHorizon;
+    if(!/^\d+$/.test(hours))continue;
+    item.querySelector('small').textContent=t('{hours} 小时内',{hours});
+    // The unit sits once in the title, not after every figure.
+    const figure=item.querySelector('b');figure.textContent=figure.textContent.replace(/%$/,'');
+  }
+}
+
 async function shareForecastCard(button) {
   const control=button.closest('[data-share-control]'),menu=control.querySelector('.share-menu');
   if(!menu.hidden) {menu.hidden=true;button.setAttribute('aria-expanded','false');return;}
   button.setAttribute('aria-busy','true');
   try {
-    const blob=await cardImage($('#forecast'),{stamp:brandStamp()});
+    const blob=await cardImage($('#forecast'),{stamp:brandStamp(),adjust:shareWording});
     const file=new File([blob],language==='zh-CN' ? '赛博牛马规划器.png' : 'usage-planner.png',{type:'image/png'});
     sharedCard={blob,file,text:t('Codex 下次 reset 大概什么时候来、每天用多少，用赛博牛马规划器看看'),url:publicPageUrl()};
     if(prefersSystemShare(file)) {

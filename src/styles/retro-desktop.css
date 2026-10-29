@@ -492,11 +492,22 @@ body[data-loading] .page-loading {position:absolute;inset:0;z-index:1;display:fl
 @media(min-width:1180px) {.plan-card>#forecast .share-control {top:14px;right:16px}}
 /* The shared picture: the small forecast card on the page colour, built off
  * screen at a fixed width so every device shares the same card. */
-.share-frame {position:fixed;left:-10000px;top:0;width:380px;padding:22px;background:var(--canvas)}
+.share-frame {position:fixed;left:-10000px;top:0;width:430px;padding:26px;background:var(--canvas)}
 .share-frame .share-card {margin:0;padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:7px;box-shadow:3px 3px 0 color-mix(in srgb,var(--shadow) 18%,transparent)}
 .share-frame .forecast-more,.share-frame .forecast-horizons .horizon-long {display:none}
 .share-frame .forecast-horizons .horizon-short {display:inline}
 .share-frame .brand-stamp {position:static;margin-top:14px}
+/* The odds are what the picture is for: larger and on a tinted band, with the
+ * dates and last reset kept quiet underneath. */
+.share-frame .forecast-glance>[data-forecast-glance="next-hours"] {gap:10px;padding:12px 0 14px!important}
+.share-frame .forecast-glance>[data-forecast-glance="next-hours"]>dt {font-size:17px;font-weight:600;color:var(--ink)}
+.share-frame .forecast-horizons {gap:6px}
+.share-frame .forecast-horizons>span,.share-frame .forecast-horizons>span:nth-child(n) {align-items:center;padding:8px 2px 6px;border:1px solid var(--border);border-radius:4px;background:var(--accent)}
+.share-frame .forecast-horizons small {font-size:15px;font-weight:600;color:var(--ink)}
+.share-frame .forecast-horizons b {font-size:30px;line-height:38px;letter-spacing:-.03em;white-space:nowrap;text-align:center}
+.share-frame .forecast-panel h2,.share-frame .forecast-panel h3 {font-size:18px}
+.share-frame .forecast-glance>div:not([data-forecast-glance="next-hours"]) dt {font-size:13px}
+.share-frame .forecast-glance>div:not([data-forecast-glance="next-hours"]) dd {font-size:15px}
 /* Keep pace on little or no history: one quiet line above the timeline. */
 .pace-note {margin:0 0 10px;font-size:12px;line-height:18px;color:var(--muted)}
 /* The plan in one line above the timeline. */
